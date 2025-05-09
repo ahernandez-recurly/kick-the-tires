@@ -38,6 +38,13 @@
           sudo update-ca-certificates
          env:
           CUSTOM_CA_CERT: ${{ secrets.CUSTOM_CA_CERT }}
+       - name: Debug certificate path
+         run: |
+          ls -l /usr/local/share/ca-certificates/
+          cat /usr/local/share/ca-certificates/custom-ca.crt || echo "Certificate not found"
+       - name: Test HTTPS connection
+         run: |
+           curl -I https://terrateam-test.recurlyqa.net --cacert /usr/local/share/ca-certificates/custom-ca.crt
        - name: Run Terrateam Action
          id: terrateam
          uses: terrateamio/action@v1
