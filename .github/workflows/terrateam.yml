@@ -31,6 +31,13 @@
      environment: '${{ github.event.inputs.environment }}'
      steps:
        - uses: actions/checkout@v4
+       - name: Add custom CA certificate
+         run: |
+          echo "$CUSTOM_CA_CERT" > custom-ca.pem
+          sudo cp custom-ca.pem /usr/local/share/ca-certificates/custom-ca.crt
+          sudo update-ca-certificates
+         env:
+          CUSTOM_CA_CERT: ${{ secrets.CUSTOM_CA_CERT }}
        - name: Run Terrateam Action
          id: terrateam
          uses: terrateamio/action@v1
@@ -40,3 +47,6 @@
          env:
            SECRETS_CONTEXT: ${{ toJson(secrets) }}
            VARIABLES_CONTEXT: ${{ toJson(vars) }}
+           REQUESTS_CA_BUNDLE: /usr/local/share/ca-certificates/custom-ca.crt
+           SSL_CERT_FILE: /usr/local/share/ca-certificates/custom-ca.crt
+
