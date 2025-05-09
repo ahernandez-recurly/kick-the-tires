@@ -37,17 +37,11 @@
           sudo cp custom-ca.pem /usr/local/share/ca-certificates/custom-ca.crt
           sudo update-ca-certificates
          env:
-          CUSTOM_CA_CERT: ${{ secrets.CUSTOM_CA_CERT }}
+          CUSTOM_CA_BUNDLE_TERRATEAM: ${{ secrets.CUSTOM_CA_CERT }}
        - name: Debug certificate path
          run: |
           ls -l /usr/local/share/ca-certificates/
           cat /usr/local/share/ca-certificates/custom-ca.crt || echo "Certificate not found"
-       - name: Export custom CA bundles
-         env:
-           CUSTOM_CA_CERT: ${{ secrets.CUSTOM_CA_CERT }}
-         run: |
-          # Export the CA certificate as an environment variable for the script
-           echo "CUSTOM_CA_BUNDLE_TERRATEAM=$CUSTOM_CA_CERT" >> $GITHUB_ENV
        - name: Run Terrateam Action
          id: terrateam
          uses: terrateamio/action@v1
@@ -55,7 +49,9 @@
            work-token: '${{ github.event.inputs.work-token }}'
            api-base-url: '${{ github.event.inputs.api-base-url }}'
          env:
+           CUSTOM_CA_BUNDLE_TERRATEAM: ${{ secrets.CUSTOM_CA_CERT }}
            SECRETS_CONTEXT: ${{ toJson(secrets) }}
            VARIABLES_CONTEXT: ${{ toJson(vars) }}
+           
 
 
