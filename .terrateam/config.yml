@@ -77,7 +77,7 @@ workflows:
       - type: init
       - type: apply
 
-    - tag_query: "tg"
+  - tag_query: "tg"
     plan:
       - type: run
         cmd: ['echo', 'Planning for terragrunt..']
