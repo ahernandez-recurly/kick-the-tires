@@ -59,8 +59,6 @@
          run: |
            pwd
            ls -l
-           cd kick-the-tires
-           pwd
            touch .envrc
            TOFU_PATH=$(which tofu)
            echo "TERRAGRUNT_TFPATH=$TOFU_PATH" >> .envrc
