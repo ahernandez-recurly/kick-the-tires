@@ -34,14 +34,8 @@
        - name: Add custom CA certificate
          run: |
           echo "$CUSTOM_CA_CERT" > custom-ca.pem
-          sudo cp custom-ca.pem /usr/local/share/ca-certificates/custom-ca.crt
-          sudo update-ca-certificates
          env:
           CUSTOM_CA_BUNDLE_TERRATEAM: ${{ secrets.CUSTOM_CA_CERT }}
-       - name: Debug certificate path
-         run: |
-          ls -l /usr/local/share/ca-certificates/
-          cat /usr/local/share/ca-certificates/custom-ca.crt || echo "Certificate not found"
        - name: Run Terrateam Action
          id: terrateam
          uses: terrateamio/action@v1
