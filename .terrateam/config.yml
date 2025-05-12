@@ -199,8 +199,15 @@ cost_estimation:
 # Support for Terraform, OpenTofu, Terragrunt, CDKTF, and Pulumi
 ################################################################################
 engine:
-  name: tofu
-  version: 1.8.7
+  name: terragrunt
+  version: 0.57.13
+dirs:
+  "**/terragrunt.hcl":
+    when_modified:
+      file_patterns: ['${DIR}/terragrunt.hcl']
+  '.':
+    when_modified:
+      file_patterns: []
 
 ################################################################################
 # Parallel Runs
