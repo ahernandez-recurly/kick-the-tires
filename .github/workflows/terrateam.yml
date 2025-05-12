@@ -36,6 +36,20 @@
           echo "$CUSTOM_CA_CERT" > custom-ca.pem
          env:
           CUSTOM_CA_BUNDLE_TERRATEAM: ${{ secrets.CUSTOM_CA_CERT }}
+       - name: install opentofu
+         run: |
+           curl --proto '=https' --tlsv1.2 -fsSL https://get.opentofu.org/install-opentofu.sh -o install-opentofu.sh
+           chmod +x install-opentofu.sh
+           ./install-opentofu.sh --install-method deb
+           which tofu
+           tofu --version
+       - name: install terragrunt
+         run: |
+           wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.57.13/terragrunt_linux_amd64
+           chmod u+x terragrunt
+           mv terragrunt /usr/local/bin/terragrunt
+           terragrunt --version
+
        - name: Run Terrateam Action
          id: terrateam
          uses: terrateamio/action@v1
