@@ -66,22 +66,23 @@
            direnv allow
 
        - name: create hcls for testing
-         touch terragrunt.hcl
-         echo "terraform {}" >> terragrunt.hcl
-         mkdir prodtest
-         cd prodtest
-         touch terragrunt.hcl
-         cat > terragrunt.hcl << EOF
-         terraform {
-           source = '../modules/compute'
-         }
+         run: |
+           touch terragrunt.hcl
+           echo "terraform {}" >> terragrunt.hcl
+           mkdir prodtest
+           cd prodtest
+           touch terragrunt.hcl
+           cat > terragrunt.hcl << EOF
+           terraform {
+             source = '../modules/compute'
+           }
 
-         inputs = {
-           instance_name = "testing"
-           instance_count = "2"
-          }
-        EOF
-        cat terragrunt.hcl
+           inputs = {
+             instance_name = "testing"
+             instance_count = "2"
+           }
+           EOF
+           cat terragrunt.hcl
 
        - name: Run Terrateam Action
          id: terrateam
