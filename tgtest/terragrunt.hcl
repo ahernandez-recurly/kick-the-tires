@@ -4,5 +4,5 @@ terraform {
 
 inputs = {
   instance_name  = "testing"
-  instance_count = "3"
+  instance_count = "1"
 }
