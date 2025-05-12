@@ -146,14 +146,14 @@ workflows:
 # Automerge
 ################################################################################
 automerge:
-  enabled: true
+  enabled: false
   delete_branch: false
 
 ################################################################################
 # Cost Estimation
 ################################################################################
 cost_estimation:
-  enabled: true
+  enabled: false
 
 ################################################################################
 # Indexer (For automatic module discovery)
@@ -208,6 +208,7 @@ cost_estimation:
 engine:
   name: terragrunt
   version: 0.57.13
+  tf_cmd: tofu
 dirs:
   "**/terragrunt.hcl":
     when_modified:
