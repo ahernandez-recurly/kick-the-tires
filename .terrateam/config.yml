@@ -19,20 +19,20 @@
 # Define logical groupings of Terraform configurations.
 # Tags allow dynamic selection of directories (e.g., "staging" and "compute")
 ################################################################################
-dirs:
-  staging/compute:
-    when_modified:
-      file_patterns: ["${DIR}/*.tf", "../../modules/**/*.tf"]
-      autoapply: true # Automatically apply after the pull request is merged
-    tags: ["staging", "compute"]
-  production/compute:
-    when_modified:
-      file_patterns: ["${DIR}/*.tf", "../../modules/**/*.tf"]
-      autoapply: true
-    tags: ["production", "compute"]
-  modules/**:
-    when_modified:
-      file_patterns: [] # Don't run Terrateam inside the modules directory
+#dirs:
+#  staging/compute:
+#    when_modified:
+#      file_patterns: ["${DIR}/*.tf", "../../modules/**/*.tf"]
+#      autoapply: true # Automatically apply after the pull request is merged
+#    tags: ["staging", "compute"]
+#  production/compute:
+#    when_modified:
+#      file_patterns: ["${DIR}/*.tf", "../../modules/**/*.tf"]
+#      autoapply: true
+#    tags: ["production", "compute"]
+#  modules/**:
+#    when_modified:
+#      file_patterns: [] # Don't run Terrateam inside the modules directory
   # If you add more directories (like "dev/compute"), place them here with tags.
 
 ################################################################################
@@ -76,6 +76,13 @@ workflows:
         cmd: ['echo', 'Applying production changes...']
       - type: init
       - type: apply
+
+    - tag_query: "tg"
+    plan:
+      - type: run
+        cmd: ['echo', 'Planning for terragrunt..']
+      - type: init
+      - type: plan
 
 ################################################################################
 # Hooks (Optional Examples)
@@ -205,6 +212,8 @@ dirs:
   "**/terragrunt.hcl":
     when_modified:
       file_patterns: ['${DIR}/terragrunt.hcl']
+    tags: ["tg"]
+    
   '.':
     when_modified:
       file_patterns: []
