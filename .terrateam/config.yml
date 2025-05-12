@@ -209,6 +209,7 @@ engine:
   name: terragrunt
   version: 0.57.13
   tf_cmd: tofu
+  tf_version: 1.6.2
 dirs:
   "**/terragrunt.hcl":
     when_modified:
