@@ -73,7 +73,6 @@
            api-base-url: '${{ github.event.inputs.api-base-url }}'
          env:
            CUSTOM_CA_BUNDLE_TERRATEAM: ${{ secrets.CUSTOM_CA_CERT }}
-           TOFUENV_TOFU_DEFAULT_VERSION: "1.6.2"
            SECRETS_CONTEXT: ${{ toJson(secrets) }}
            VARIABLES_CONTEXT: ${{ toJson(vars) }}
            
